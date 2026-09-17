@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Logo Concepts - Remain</title>
+  <title>Logo Concepts &amp; Marks - Remain</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -13,10 +13,10 @@
       color: #ffffff;
       font-family: 'Inter', sans-serif;
       margin: 0;
-      padding: 40px 20px 80px;
+      padding: 40px 24px 100px;
     }
     .container {
-      max-width: 1080px;
+      max-width: 1200px;
       margin: 0 auto;
     }
     header {
@@ -24,11 +24,11 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 40px;
-      padding-bottom: 20px;
+      padding-bottom: 24px;
       border-bottom: 1px solid rgba(255,255,255,0.12);
     }
     h1 {
-      font-size: 28px;
+      font-size: 30px;
       margin: 0 0 8px;
       font-weight: 600;
     }
@@ -45,17 +45,43 @@
       border: 1px solid rgba(255,255,255,0.25);
       background: #111111;
       font-size: 14px;
+      transition: border-color 0.2s;
+    }
+    a.btn:hover {
+      border-color: #ffffff;
+    }
+    .section-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 40px 0 20px;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .badge {
+      background: #222222;
+      border: 1px solid rgba(255,255,255,0.2);
+      font-size: 12px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      color: #4ade80;
     }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
       gap: 30px;
     }
     .card {
       background: #0d0d0d;
-      border: 1px solid rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.14);
       border-radius: 12px;
       overflow: hidden;
+      transition: transform 0.25s, border-color 0.25s;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255,255,255,0.35);
     }
     .card img {
       width: 100%;
@@ -69,11 +95,12 @@
       font-size: 18px;
       font-weight: 600;
       margin-bottom: 8px;
+      color: #ffffff;
     }
     .card-desc {
       font-size: 14px;
       color: #888888;
-      line-height: 1.5;
+      line-height: 1.55;
     }
   </style>
 </head>
@@ -81,46 +108,70 @@
   <div class="container">
     <header>
       <div>
-        <h1>REMAIN - Logo Exploration</h1>
-        <p class="sub">3 directions highlighting the "AI" inside REMAIN</p>
+        <h1>REMAIN - Logo &amp; Icon Explorations</h1>
+        <p class="sub">Updated with fixed chrome 'AI' + new icon and emblem concepts</p>
       </div>
       <a href="index.html" class="btn">Back to Website</a>
     </header>
 
+    <div class="section-title">
+      <span>1. Fixed Wordmark (Both A &amp; I in Chrome)</span>
+      <span class="badge">Updated</span>
+    </div>
+
     <div class="grid">
-      <!-- Concept 1 -->
-      <div class="card">
-        <img src="logo_1.jpg" alt="Concept 1: Liquid Metallic Inset">
+      <!-- Fixed Concept 1 -->
+      <div class="card" style="border-color: rgba(255,255,255,0.35);">
+        <img src="logo_fixed_1.jpg" alt="Concept 1 Fixed: Both A and I in Liquid Chrome">
         <div class="card-info">
-          <div class="card-title">Concept 1: The Liquid Metallic Inset</div>
+          <div class="card-title">Concept 1 (Fixed): Full "AI" Liquid Chrome Inset</div>
           <div class="card-desc">
-            Clean solid white typography for REM and N with a custom-beveled liquid-metal chrome finish and subtle glow for the internal AI.
-          </div>
-        </div>
-      </div>
-
-      <!-- Concept 2 -->
-      <div class="card">
-        <img src="logo_2.jpg" alt="Concept 2: Interlocked Negative Space">
-        <div class="card-info">
-          <div class="card-title">Concept 2: Interlocked Negative Space</div>
-          <div class="card-desc">
-            Modern Swiss geometric wordmark where the right leg of the A merges directly into the stem of the I with an icy silver highlight.
-          </div>
-        </div>
-      </div>
-
-      <!-- Concept 3 -->
-      <div class="card">
-        <img src="logo_3.jpg" alt="Concept 3: The R + AI Monogram Icon">
-        <div class="card-info">
-          <div class="card-title">Concept 3: The "R + AI" Monogram Icon</div>
-          <div class="card-desc">
-            Standalone faceted emblem fusing the letters R and AI into a minimal geometric badge next to the bold REMAIN wordmark.
+            Both the <strong>A</strong> and <strong>I</strong> are rendered in matching 3D beveled liquid-metal chrome with reflective lighting and a soft white glow, framed by flat matte white <strong>REM</strong> and <strong>N</strong>.
           </div>
         </div>
       </div>
     </div>
+
+    <div class="section-title">
+      <span>2. Standalone Icons &amp; Emblems ("Little Logos")</span>
+      <span class="badge">New</span>
+    </div>
+
+    <div class="grid">
+      <!-- Icon 1: R + AI Neural Link -->
+      <div class="card">
+        <img src="logo_icon_r.jpg" alt="R + AI Neural Monogram">
+        <div class="card-info">
+          <div class="card-title">Concept 2: The "R + AI" Precision Monogram</div>
+          <div class="card-desc">
+            A standalone luxury icon where the letter <strong>R</strong> integrates an <strong>AI</strong> connectivity network into its spine, paired with the clean white REMAIN wordmark.
+          </div>
+        </div>
+      </div>
+
+      <!-- Icon 2: Circular AI Wave Badge -->
+      <div class="card">
+        <img src="logo_ai_wave.jpg" alt="Circular AI Wave Communication Emblem">
+        <div class="card-info">
+          <div class="card-title">Concept 3: Circular "AI Wave" Communication Badge</div>
+          <div class="card-desc">
+            A liquid-metal circular badge representing missed-call soundwaves and radio signals centered around an <strong>AI</strong> mark, next to the liquid-accented wordmark.
+          </div>
+        </div>
+      </div>
+
+      <!-- Icon 3: Titanium R-Pulse & Arrow -->
+      <div class="card">
+        <img src="logo_badge_arrow.jpg" alt="Brushed Titanium R Badge with Lightning and Arrow">
+        <div class="card-info">
+          <div class="card-title">Concept 4: Titanium "R" App Icon + FedEx-Style Arrow</div>
+          <div class="card-desc">
+            A standalone brushed titanium app-icon tile with an <strong>R</strong> cut with a lightning pulse, alongside a wordmark where the <strong>AI</strong> forms a dynamic forward arrow.
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </body>
 </html>
