@@ -1,4 +1,4 @@
-# Remain LLC — Website
+# Remain LLC - Website
 
 Official landing page for **Remain LLC** (remainllc.com), based in Holland, Michigan.
 
