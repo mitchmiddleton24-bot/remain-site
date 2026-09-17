@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy - Remain</title>
+  <meta name="description" content="Privacy Policy for Remain LLC (remainllc.com), Holland, Michigan.">
+
+  <!-- Favicon SVG exact data URI -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cg transform='rotate(-30 12 12)'%3E%3Ccircle cx='7.3' cy='3.2' r='1.45'/%3E%3Crect x='5.5' y='4.7' width='3.6' height='14.6' rx='1.8'/%3E%3Crect x='14.9' y='4.7' width='3.6' height='14.6' rx='1.8'/%3E%3Ccircle cx='16.7' cy='20.8' r='1.45'/%3E%3C/g%3E%3C/svg%3E">
+
+  <!-- Google Fonts exact fallbacks -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+
+  <style>
+    html, body {
+      background: #000000 !important;
+      color: #ffffff;
+    }
+
+    :root {
+      --bg: #000000;
+      --text: #ffffff;
+      --muted: #9a9a9a;
+      --border: rgba(255, 255, 255, 0.16);
+      --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-serif: "Instrument Serif", "Times New Roman", Times, Georgia, serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: #000000;
+      color: #ffffff;
+    }
+
+    body {
+      background: #000000;
+      color: #ffffff;
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      pointer-events: none;
+      opacity: 0.038;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    .legal-backdrop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 480px;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .legal-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.45;
+      filter: brightness(1.3) contrast(1.4) saturate(0);
+      mix-blend-mode: screen;
+    }
+
+    .legal-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.85) 60%, #000000 100%);
+    }
+
+    header.header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 40px;
+      position: relative;
+      z-index: 10;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    a.logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      height: 38px;
+      padding: 0 16px;
+      border-radius: 6px;
+      border: 1px solid rgba(198, 198, 198, 0.45);
+      background: linear-gradient(105deg, #050505 0%, #2a2a2a 48%, #4a4a4a 100%);
+      color: #f3f3f3;
+      font-size: 13.5px;
+      transition: border-color 0.25s, transform 0.2s;
+    }
+    .back-btn:hover {
+      border-color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    main.legal-content {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 80px 24px 120px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .legal-tag {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9a9a9a;
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    h1 {
+      font-size: clamp(36px, 5vw, 48px);
+      font-weight: 500;
+      letter-spacing: -0.035em;
+      line-height: 1.15;
+      margin-bottom: 12px;
+    }
+
+    h1 em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: #9a9a9a;
+    }
+
+    .effective-date {
+      color: #777777;
+      font-size: 14px;
+      margin-bottom: 48px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .policy-box {
+      background: linear-gradient(180deg, rgba(22, 22, 22, 0.7) 0%, rgba(10, 10, 10, 0.95) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 36px 32px;
+      margin-bottom: 36px;
+      backdrop-filter: blur(12px);
+    }
+
+    h2 {
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+      color: #ffffff;
+    }
+
+    p {
+      color: #b0b0b0;
+      font-size: 15px;
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    ul {
+      margin-left: 20px;
+      margin-bottom: 16px;
+      color: #b0b0b0;
+      font-size: 15px;
+    }
+    li {
+      margin-bottom: 8px;
+    }
+
+    .highlight-card {
+      border-left: 3px solid #ffffff;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 16px 20px;
+      border-radius: 0 8px 8px 0;
+      margin: 16px 0;
+      font-size: 14.5px;
+      color: #e5e5e5;
+    }
+
+    footer.site-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 36px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #7a7a7a;
+      font-size: 13.5px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+    .footer-links a:hover {
+      color: #ffffff;
+    }
+
+    @media (max-width: 680px) {
+      header.header {
+        padding: 18px 20px;
+      }
+      main.legal-content {
+        padding: 50px 20px 80px;
+      }
+      .policy-box {
+        padding: 24px 20px;
+      }
+      footer.site-footer {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+        padding: 28px 20px;
+      }
+    }
+  </style>
+</head>
+<body style="background:#000;color:#fff">
+
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="legal-backdrop" aria-hidden="true">
+    <video class="legal-video" autoplay loop muted playsinline poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23050505'/%3E%3C/svg%3E">
+      <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260818_072341_50851634-bbc3-4c33-9acc-7647d4db44aa.mp4" type="video/mp4">
+    </video>
+    <div class="legal-scrim"></div>
+  </div>
+
+  <header class="header">
+    <a href="index.html" class="logo" aria-label="Remain - Home">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+        <g transform="rotate(-30 12 12)">
+          <circle cx="7.3" cy="3.2" r="1.45" />
+          <rect x="5.5" y="4.7" width="3.6" height="14.6" rx="1.8" />
+          <rect x="14.9" y="4.7" width="3.6" height="14.6" rx="1.8" />
+          <circle cx="16.7" cy="20.8" r="1.45" />
+        </g>
+      </svg>
+      <span>Remain</span>
+    </a>
+
+    <a href="index.html" class="back-btn">
+      Back to Home
+    </a>
+  </header>
+
+  <main class="legal-content">
+    <span class="legal-tag">Legal &amp; Privacy</span>
+    <h1>Privacy <em>Policy</em></h1>
+    <p class="effective-date">Last updated: September 2026 - Remain LLC (remainllc.com), Holland, Michigan</p>
+
+    <div class="policy-box">
+      <h2>1. Overview</h2>
+      <p>
+        Remain LLC ("Remain", "we", "us", or "our") respects your privacy. This Privacy Policy describes how we collect, use, and safeguard information when you visit remainllc.com or use our automated missed-call text-back, appointment scheduling, and customer communication services.
+      </p>
+    </div>
+
+    <div class="policy-box">
+      <h2>2. Information We Collect</h2>
+      <p>We only collect information necessary to provide and set up our services, including:</p>
+      <ul>
+        <li><strong>Contact Details:</strong> Your name, business name, trade or industry, phone number, and email address submitted through our inquiry forms.</li>
+        <li><strong>Business Details:</strong> Operating hours, service areas, and standard customer service guidelines used to configure your automated responses.</li>
+        <li><strong>Communication Records:</strong> Records of your inquiries, support requests, and text interactions with Remain.</li>
+      </ul>
+    </div>
+
+    <div class="policy-box">
+      <h2>3. How We Use Your Information</h2>
+      <p>We use the information collected to:</p>
+      <ul>
+        <li>Deliver, configure, and maintain our missed-call text-back and appointment booking systems.</li>
+        <li>Respond to your requests, questions, and trade assessment submissions within 1 business day.</li>
+        <li>Send service-related updates, operational notices, and administrative communications.</li>
+      </ul>
+    </div>
+
+    <div class="policy-box">
+      <h2>4. SMS and Mobile Number Privacy (No Sharing)</h2>
+      <p>We hold mobile privacy to the highest standard. Under no circumstances do we sell or rent phone numbers.</p>
+      
+      <div class="highlight-card">
+        <strong>Strict SMS Privacy Rule:</strong> No mobile information will be shared with third parties or affiliates for marketing or promotional purposes. All the above categories exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties.
+      </div>
+
+      <p>
+        If you provide your phone number, you may receive SMS messages from Remain LLC regarding your service setup or assessment. Message and data rates may apply. You may opt out of SMS messages at any time by replying <strong>STOP</strong>. For assistance, reply <strong>HELP</strong>.
+      </p>
+    </div>
+
+    <div class="policy-box">
+      <h2>5. Data Security &amp; Retention</h2>
+      <p>
+        We implement commercial-grade administrative, technical, and physical security measures to protect your personal and business data against unauthorized access, alteration, or loss. We retain your information only as long as necessary to fulfill the purposes outlined in this policy or to comply with legal obligations.
+      </p>
+    </div>
+
+    <div class="policy-box">
+      <h2>6. Your Choices and Rights</h2>
+      <p>
+        You have the right to access, update, or request the deletion of your personal information at any time. To request changes or removal of your details from our records, please contact us directly at <a href="mailto:info@remainllc.com" style="color:#ffffff;text-decoration:underline;">info@remainllc.com</a>.
+      </p>
+    </div>
+
+    <div class="policy-box">
+      <h2>7. Contact Us</h2>
+      <p>
+        If you have questions or comments regarding this Privacy Policy, please contact:
+      </p>
+      <p style="color:#ffffff;margin-top:10px;">
+        <strong>Remain LLC</strong><br>
+        Holland, Michigan<br>
+        Email: <a href="mailto:info@remainllc.com" style="color:#ffffff;text-decoration:underline;">info@remainllc.com</a><br>
+        Website: remainllc.com
+      </p>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div>
+      (c) 2026 Remain LLC. All rights reserved. Holland, Michigan.
+    </div>
+    <div class="footer-links">
+      <a href="index.html#services">Services</a>
+      <a href="index.html#how-it-works">How It Works</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="mailto:info@remainllc.com">info@remainllc.com</a>
+    </div>
+  </footer>
+
+</body>
+</html>
