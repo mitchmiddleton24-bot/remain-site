@@ -1,0 +1,1677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Remain — Never Lose Another Customer to a Missed Call</title>
+  <meta name="description" content="Remain LLC helps Michigan plumbers, HVAC, electricians, and trade businesses automatically text missed calls back and book jobs while you're on the roof. Holland, MI.">
+
+  <!-- Favicon SVG exact data URI -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cg transform='rotate(-30 12 12)'%3E%3Ccircle cx='7.3' cy='3.2' r='1.45'/%3E%3Crect x='5.5' y='4.7' width='3.6' height='14.6' rx='1.8'/%3E%3Crect x='14.9' y='4.7' width='3.6' height='14.6' rx='1.8'/%3E%3Ccircle cx='16.7' cy='20.8' r='1.45'/%3E%3C/g%3E%3C/svg%3E">
+
+  <!-- Google Fonts exact fallbacks: Inter variable + Instrument Serif italic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+
+  <style>
+    /* 1. Force black immediately so page never flashes white */
+    html, body {
+      background: #000000 !important;
+      color: #ffffff;
+    }
+
+    /* Self-hosted font declarations with graceful fallbacks */
+    @font-face {
+      font-family: "Inter";
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+      src: url("inter.woff2") format("woff2");
+    }
+    @font-face {
+      font-family: "Instrument Serif";
+      font-style: italic;
+      font-weight: 400;
+      font-display: swap;
+      src: url("instrument-serif-italic.woff2") format("woff2");
+    }
+
+    /* 2. Tokens (default / ~1440px desktop) */
+    :root {
+      --bg: #000000;
+      --text: #ffffff;
+      --muted: #9a9a9a;
+      --stat: #d8d8d8;
+      --border: rgba(255, 255, 255, 0.16);
+      --border-soft: rgba(255, 255, 255, 0.12);
+
+      --logo: 15.5px;
+      --logo-mark: 22px;
+      --nav: 14px;
+      --nav-h: 40px;
+      --btn: 13.5px;
+      --btn-h: 40px;
+      --hero-btn-h: 42px;
+      --h1: 48px;
+      --lede: 15.5px;
+      --badge: 12.5px;
+      --stat-size: 13.5px;
+      --header-y: 22px;
+      --header-x: 40px;
+      --stats-x: 72px;
+      --stats-y: 36px;
+      --hero-gap: 75px;
+      --copy-max: 860px;
+      --lede-max: 540px;
+      --section-max: 1180px;
+
+      --font-sans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-serif: "Instrument Serif", "Times New Roman", Times, Georgia, serif;
+    }
+
+    /* Universal reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: #000000;
+      background: var(--bg, #000000);
+      color: #ffffff;
+      color: var(--text, #ffffff);
+    }
+
+    body {
+      background: #000000;
+      background: var(--bg, #000000);
+      color: #ffffff;
+      color: var(--text, #ffffff);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+      position: relative;
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
+      border: none;
+      background: none;
+    }
+
+    /* 3. Layer Stack */
+    /* Grain overlay at z-index: 100 */
+    .grain {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      pointer-events: none;
+      opacity: 0.038;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    /* Hero background video / photo backdrop + scrim */
+    .hero-backdrop {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      min-height: 680px;
+      overflow: hidden;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.35;
+      filter: saturate(0.6) brightness(0.7);
+      transition: opacity 1s ease;
+    }
+
+    .hero-scrim {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 40%, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 75%, #000000 100%),
+                  linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 25%, rgba(0,0,0,0.7) 70%, #000000 100%);
+    }
+
+    /* Overall page container */
+    .page {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+    }
+
+    /* Hero Viewport Section: exact 100vh frame with 3-row grid */
+    .hero-viewport {
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      position: relative;
+      width: 100%;
+    }
+
+    /* 4. Header — 3-column grid */
+    header.header {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: var(--header-y) var(--header-x) 10px;
+      z-index: 50;
+      position: relative;
+    }
+
+    /* Left: Logo */
+    a.logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      justify-self: start;
+      font-size: var(--logo);
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      color: #ffffff;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    a.logo:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+    .logo-mark {
+      width: var(--logo-mark);
+      height: var(--logo-mark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+    }
+    .logo-suffix {
+      font-weight: 400;
+      color: var(--muted);
+      margin-left: -1px;
+    }
+
+    /* Center: Nav pills */
+    nav#site-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      justify-self: center;
+    }
+
+    /* Liquid-metal pill link */
+    .nav-pill {
+      display: inline-flex;
+      align-items: center;
+      height: var(--nav-h);
+      padding: 0 18px;
+      border-radius: 7px;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(198, 198, 198, 0.55);
+      background: linear-gradient(105deg, #050505 0%, #2a2a2a 48%, #4a4a4a 100%);
+      color: #f3f3f3;
+      font-size: var(--nav);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, transform 0.2s ease;
+    }
+    .nav-pill::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.16) 50%, transparent 70%);
+      transform: translateX(-120%);
+      transition: transform 0.6s ease;
+      pointer-events: none;
+    }
+    .nav-pill:hover {
+      border-color: rgba(235, 235, 235, 0.9);
+      background: linear-gradient(105deg, #111111 0%, #3a3a3a 45%, #6a6a6a 100%);
+      box-shadow: 0 0 18px rgba(200, 210, 230, 0.18);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+    .nav-pill:hover::before {
+      transform: translateX(120%);
+    }
+
+    /* Right: Header CTA */
+    .header-actions {
+      justify-self: end;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* 5. Buttons (Shared liquid-glass language) */
+    .btn {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: var(--btn-h);
+      padding: 0 18px;
+      border-radius: 6px;
+      font-size: var(--btn);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      white-space: nowrap;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, color 0.35s ease, transform 0.2s ease;
+    }
+    .btn::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, 0.45) 48%, transparent 76%);
+      transform: translateX(-130%);
+      transition: transform 0.65s ease;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .btn:hover::after {
+      transform: translateX(130%);
+    }
+
+    /* Solid Metallic Button */
+    .btn-solid {
+      background: linear-gradient(180deg, #ffffff 0%, #e7e7e7 48%, #cfcfcf 100%);
+      color: #111111;
+      border: 1px solid #ffffff;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    }
+    .btn-solid:hover {
+      background: linear-gradient(180deg, #ffffff 0%, #f3f6ff 42%, #d5def2 100%);
+      border-color: #f2f6ff;
+      box-shadow: inset 0 1px 0 #ffffff, 0 0 22px rgba(186, 208, 255, 0.35), 0 8px 18px rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+    }
+
+    /* Hero solid has slightly stronger glow */
+    .hero-btn-solid:hover {
+      box-shadow: inset 0 1px 0 #ffffff, 0 0 26px rgba(186, 208, 255, 0.4), 0 8px 18px rgba(255, 255, 255, 0.14);
+    }
+
+    /* Ghost Button (Frosted liquid metal) */
+    .btn-ghost {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(0, 0, 0, 0.5) 46%, rgba(150, 170, 200, 0.1));
+      color: #ffffff;
+      border: 1px solid rgba(198, 198, 198, 0.55);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+    .btn-ghost:hover {
+      background: linear-gradient(135deg, rgba(210, 225, 255, 0.18) 0%, rgba(0, 0, 0, 0.35) 48%, rgba(180, 195, 220, 0.16) 100%);
+      border-color: rgba(220, 230, 255, 0.8);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 0 24px rgba(170, 200, 255, 0.28);
+      transform: translateY(-1px);
+    }
+
+    .hero-actions .btn {
+      height: var(--hero-btn-h);
+      padding: 0 20px;
+    }
+
+    /* Burger button (mobile) */
+    .burger {
+      display: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: rgba(8, 8, 8, 0.55);
+      z-index: 60;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+      transition: border-color 0.2s, background-color 0.2s;
+    }
+    .burger:hover {
+      border-color: rgba(255, 255, 255, 0.32);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .burger-bar {
+      width: 16px;
+      height: 1.5px;
+      background: #ffffff;
+      border-radius: 1px;
+      transition: transform 0.25s ease, opacity 0.2s ease;
+    }
+    body.menu-open .burger-bar:nth-child(1) {
+      transform: translateY(6.5px) rotate(45deg);
+    }
+    body.menu-open .burger-bar:nth-child(2) {
+      opacity: 0;
+    }
+    body.menu-open .burger-bar:nth-child(3) {
+      transform: translateY(-6.5px) rotate(-45deg);
+    }
+
+    /* Full-screen menu backdrop */
+    .menu-backdrop {
+      display: none;
+    }
+
+    /* 6. Hero Section (Bottom-centered layout) */
+    main.hero {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 8px 24px var(--hero-gap);
+      min-height: 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: var(--copy-max);
+      width: 100%;
+    }
+
+    /* Badge */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 22px;
+      padding: 8px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 999px;
+      background: linear-gradient(90deg, #333333 0%, #1a1a1a 52%, #0a0a0a 100%);
+      color: #f2f2f2;
+      font-size: var(--badge);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+    .badge-star {
+      width: 16px;
+      height: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.45));
+    }
+    .badge-star svg {
+      width: 16px;
+      height: 16px;
+      fill: #ffffff;
+    }
+
+    /* H1 Headline */
+    .hero-h1 {
+      font-size: var(--h1);
+      font-weight: 500;
+      letter-spacing: -0.045em;
+      line-height: 1.12;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+    }
+    .headline-line {
+      display: block;
+      overflow: hidden;
+      padding: 0.06em 0.15em 0.14em;
+    }
+    .headline-line em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.08em;
+      letter-spacing: -0.03em;
+      color: #9a9a9a;
+      display: inline-block;
+      transition: color 0.3s ease;
+    }
+    .headline-line:hover em {
+      color: #ffffff;
+    }
+
+    /* Lede */
+    .lede {
+      max-width: var(--lede-max);
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: var(--lede);
+      font-weight: 400;
+      line-height: 1.55;
+      letter-spacing: -0.015em;
+      text-wrap: balance;
+    }
+
+    /* Hero Action Buttons */
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    /* 7. Stats Footer for Hero Viewport */
+    footer.stats {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 0 var(--stats-x) var(--stats-y);
+      padding-bottom: max(var(--stats-y), env(safe-area-inset-bottom));
+      color: var(--stat);
+      position: relative;
+      z-index: 2;
+    }
+    .stat {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      font-size: var(--stat-size);
+      letter-spacing: -0.015em;
+      white-space: nowrap;
+    }
+    .stat-icon {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #e8e8e8;
+      flex-shrink: 0;
+    }
+    .stat-icon-wide {
+      width: 38px;
+      height: 21px;
+      flex-shrink: 0;
+    }
+
+    /* 8. Full Site Sections (Services, How it Works, Benefits, Contact) */
+    .content-section {
+      position: relative;
+      z-index: 2;
+      padding: 100px 24px;
+      max-width: var(--section-max);
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 60px;
+    }
+    .section-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9a9a9a;
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-size: clamp(32px, 4vw, 44px);
+      font-weight: 500;
+      letter-spacing: -0.035em;
+      line-height: 1.15;
+      color: #ffffff;
+      margin-bottom: 16px;
+    }
+    .section-title em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      color: #9a9a9a;
+    }
+    .section-desc {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Services Grid: 3 Liquid-Metal Cards */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+
+    .service-card {
+      position: relative;
+      background: linear-gradient(145deg, rgba(25, 25, 25, 0.7) 0%, rgba(10, 10, 10, 0.9) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 36px 30px;
+      overflow: hidden;
+      transition: border-color 0.35s ease, transform 0.3s ease, box-shadow 0.35s ease;
+      backdrop-filter: blur(12px);
+    }
+    .service-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+    }
+    .service-card:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 24px rgba(186, 208, 255, 0.08);
+    }
+    .service-icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #2b2b2b 0%, #111111 100%);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 22px;
+      color: #ffffff;
+    }
+    .service-title {
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+    .service-text {
+      font-size: 15px;
+      color: #a6a6a6;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .service-quote {
+      background: rgba(255, 255, 255, 0.04);
+      border-left: 2px solid rgba(255, 255, 255, 0.4);
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+      font-size: 13.5px;
+      color: #d1d1d1;
+      font-style: italic;
+    }
+
+    /* How It Works Steps */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      position: relative;
+    }
+    .step-card {
+      background: linear-gradient(180deg, rgba(20, 20, 20, 0.6) 0%, rgba(8, 8, 8, 0.8) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 34px 28px;
+      position: relative;
+      transition: border-color 0.3s ease, transform 0.25s ease;
+    }
+    .step-card:hover {
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+    }
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #ffffff 0%, #a8a8a8 100%);
+      color: #000000;
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    .step-title {
+      font-size: 19px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      color: #ffffff;
+    }
+    .step-desc {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* Comparison / Benefit Pills Callout */
+    .benefit-banner {
+      margin-top: 48px;
+      padding: 32px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: linear-gradient(135deg, rgba(35, 35, 35, 0.4) 0%, rgba(10, 10, 10, 0.8) 100%);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-around;
+      gap: 20px;
+    }
+    .benefit-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14.5px;
+      color: #e2e2e2;
+    }
+    .benefit-item svg {
+      color: #4ade80;
+      flex-shrink: 0;
+    }
+
+    /* Contact & Form Section */
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 48px;
+      background: linear-gradient(180deg, rgba(22, 22, 22, 0.7) 0%, rgba(8, 8, 8, 0.95) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 16px;
+      padding: 56px 48px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8);
+    }
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .contact-info h3 {
+      font-size: 32px;
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .contact-info h3 em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: #9a9a9a;
+    }
+    .contact-info p {
+      color: var(--muted);
+      font-size: 15.5px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .contact-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .meta-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 14.5px;
+      color: #d1d1d1;
+    }
+    .meta-row a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    /* Form Elements */
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .form-group label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #b0b0b0;
+      letter-spacing: -0.01em;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 6px;
+      background: rgba(15, 15, 15, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      color: #ffffff;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: rgba(255, 255, 255, 0.6);
+      background: rgba(25, 25, 25, 0.95);
+      box-shadow: 0 0 12px rgba(255, 255, 255, 0.1);
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 90px;
+    }
+    .form-submit-btn {
+      margin-top: 8px;
+      height: 48px;
+      font-size: 15px;
+      width: 100%;
+    }
+    .form-success {
+      display: none;
+      background: rgba(74, 222, 128, 0.1);
+      border: 1px solid rgba(74, 222, 128, 0.3);
+      color: #4ade80;
+      padding: 16px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 14.5px;
+      margin-top: 12px;
+    }
+
+    /* Main Footer */
+    footer.site-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 40px var(--header-x);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #7a7a7a;
+      font-size: 13.5px;
+      position: relative;
+      z-index: 2;
+    }
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+    .footer-links a:hover {
+      color: #ffffff;
+    }
+
+    /* 9. Entrance Motion System (Exact) */
+    .appear {
+      opacity: 1; /* Resting opacity is 1 so page is never blank if JS fails */
+      animation-duration: 1.05s;
+      animation-fill-mode: both;
+      animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+      animation-delay: var(--d, 0.08s);
+    }
+
+    .appear.is-in {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+      clip-path: none !important;
+      filter: none !important;
+    }
+
+    .appear--scale { animation-name: in-scale; }
+    .appear--soft  { animation-name: in-soft; }
+    .appear--mask  { animation-name: in-mask; }
+    .appear--pop   { animation-name: in-pop; }
+    .appear--btn   { animation-name: in-btn; }
+    .appear--side  { animation-name: in-side; }
+    .appear--stat  { animation-name: in-stat; }
+
+    /* Delays according to motionsites spec */
+    .d-logo       { --d: 0.08s; }
+    .d-nav-1      { --d: 0.16s; }
+    .d-nav-2      { --d: 0.28s; }
+    .d-nav-3      { --d: 0.40s; }
+    .d-nav-4      { --d: 0.52s; }
+    .d-header-cta { --d: 0.34s; }
+    .d-badge      { --d: 0.22s; }
+    .d-h1-1       { --d: 0.42s; }
+    .d-h1-2       { --d: 0.62s; }
+    .d-lede       { --d: 0.82s; animation-duration: 1.25s; }
+    .d-cta-solid  { --d: 0.96s; }
+    .d-cta-ghost  { --d: 1.10s; }
+    .d-stat-1     { --d: 1.12s; }
+    .d-stat-2     { --d: 1.28s; }
+    .d-stat-3     { --d: 1.44s; }
+
+    @keyframes in-scale {
+      0% { opacity: 0; transform: scale(0.84); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes in-soft {
+      0% { opacity: 0; transform: translateY(14px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes in-mask {
+      0% { opacity: 0; transform: translateY(40%); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes in-pop {
+      0% { opacity: 0; transform: scale(0.9); }
+      70% { opacity: 1; transform: scale(1.03); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes in-btn {
+      0% { opacity: 0; transform: translateY(18px) scale(0.94); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes in-side {
+      0% { opacity: 0; transform: translateX(22px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes in-stat {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .badge-star {
+      animation: in-star 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
+    }
+    @keyframes in-star {
+      0% { transform: scale(0.2) rotate(-50deg); }
+      65% { transform: scale(1.2) rotate(8deg); }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+
+    .headline-line em {
+      animation: in-em 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.72s both;
+    }
+    @keyframes in-em {
+      0% { opacity: 0.35; filter: blur(4px); }
+      100% { opacity: 1; filter: blur(0px); }
+    }
+
+    /* Accessibility: Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+      .appear, .hero-backdrop, .hero-h1 em, .badge-star {
+        opacity: 1 !important;
+        transform: none !important;
+        clip-path: none !important;
+        filter: none !important;
+      }
+    }
+
+    /* 10. Responsive Breakpoints */
+    /* >=1600 */
+    @media (min-width: 1600px) {
+      :root {
+        --logo: 17px;
+        --logo-mark: 24px;
+        --nav: 15px;
+        --nav-h: 44px;
+        --btn: 15px;
+        --btn-h: 44px;
+        --hero-btn-h: 48px;
+        --h1: 64px;
+        --lede: 18px;
+        --badge: 13.5px;
+        --stat-size: 15px;
+        --header-y: 28px;
+        --header-x: 64px;
+        --stats-x: 96px;
+        --stats-y: 44px;
+        --copy-max: 980px;
+        --lede-max: 600px;
+      }
+      .nav-pill { padding: 0 20px; }
+      .badge { margin-bottom: 26px; }
+      .lede { margin-top: 22px; }
+      .hero-actions { margin-top: 30px; gap: 14px; }
+    }
+
+    /* >=1920 */
+    @media (min-width: 1920px) {
+      :root {
+        --logo: 18px;
+        --logo-mark: 26px;
+        --nav: 16px;
+        --nav-h: 48px;
+        --btn: 16px;
+        --btn-h: 48px;
+        --hero-btn-h: 52px;
+        --h1: 76px;
+        --lede: 20px;
+        --badge: 14.5px;
+        --stat-size: 16px;
+        --header-y: 32px;
+        --header-x: 80px;
+        --stats-x: 120px;
+        --stats-y: 52px;
+        --copy-max: 1120px;
+        --lede-max: 680px;
+      }
+      nav#site-nav { gap: 10px; }
+      .nav-pill { padding: 0 22px; }
+      .btn { padding: 0 22px; }
+      .badge { padding: 10px 18px; }
+    }
+
+    /* 901px - 1279px */
+    @media (min-width: 901px) and (max-width: 1279px) {
+      :root {
+        --logo: 15px;
+        --nav: 13px;
+        --nav-h: 36px;
+        --btn: 13px;
+        --btn-h: 38px;
+        --hero-btn-h: 40px;
+        --h1: 42px;
+        --lede: 15px;
+        --badge: 12px;
+        --stat-size: 12.5px;
+        --header-y: 16px;
+        --header-x: 28px;
+        --stats-x: 36px;
+        --stats-y: 28px;
+        --hero-gap: 64px;
+        --copy-max: 760px;
+        --lede-max: 480px;
+      }
+      .nav-pill { padding: 0 14px; }
+      .badge { margin-bottom: 16px; }
+      .lede { margin-top: 14px; }
+      .hero-actions { margin-top: 20px; }
+    }
+
+    /* <=900px Mobile & Tablet Phone view */
+    @media (max-width: 900px) {
+      :root {
+        --logo: 16px;
+        --btn: 15px;
+        --btn-h: 46px;
+        --hero-btn-h: 48px;
+        --h1: 36px;
+        --lede: 16px;
+        --badge: 13px;
+        --stat-size: 14px;
+        --header-y: 16px;
+        --header-x: 18px;
+        --stats-x: 20px;
+        --stats-y: 28px;
+        --hero-gap: 36px;
+      }
+
+      header.header {
+        grid-template-columns: 1fr auto auto;
+        gap: 10px;
+        padding: max(var(--header-y), env(safe-area-inset-top)) var(--header-x) 10px;
+      }
+
+      .logo, .header-cta, .burger {
+        z-index: 80;
+      }
+
+      .burger {
+        display: flex;
+      }
+
+      /* Mobile Navigation Overlay */
+      .menu-backdrop {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 40;
+        background: rgba(8, 8, 8, 0.75);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.28s ease, visibility 0.28s ease;
+      }
+
+      nav#site-nav {
+        position: fixed;
+        inset: 0;
+        z-index: 45;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        padding: 96px 22px 32px;
+        padding-top: max(96px, calc(env(safe-area-inset-top) + 88px));
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.25s ease, visibility 0.25s ease;
+      }
+
+      body.menu-open .menu-backdrop {
+        opacity: 1;
+        visibility: visible;
+      }
+      body.menu-open nav#site-nav {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+      }
+      body.menu-open {
+        overflow: hidden !important;
+      }
+
+      nav#site-nav .nav-pill {
+        width: 100%;
+        max-width: 320px;
+        height: 56px;
+        font-size: 18px;
+        border-radius: 10px;
+        justify-content: center;
+      }
+
+      /* Hero mobile layout */
+      main.hero {
+        padding: 20px 20px 64px;
+      }
+
+      .hero-copy {
+        max-width: 100%;
+      }
+
+      footer.stats {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        white-space: normal;
+        text-align: center;
+      }
+
+      .steps-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-container {
+        grid-template-columns: 1fr;
+        padding: 36px 24px;
+        gap: 36px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      footer.site-footer {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+    }
+
+    /* <=560px */
+    @media (max-width: 560px) {
+      :root {
+        --h1: 34px;
+        --lede: 15px;
+        --header-x: 16px;
+      }
+      .hero-actions {
+        flex-direction: column;
+        width: 100%;
+      }
+      .hero-actions .btn {
+        width: 100%;
+      }
+      .header-cta {
+        display: none; /* Hide header CTA on very small phones to preserve space for burger */
+      }
+    }
+  </style>
+</head>
+<body style="background:#000;color:#fff">
+
+  <!-- Grain overlay -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Hero background video & scrim -->
+  <div class="hero-backdrop" aria-hidden="true">
+    <video class="hero-video" autoplay loop muted playsinline poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23050505'/%3E%3C/svg%3E">
+      <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260818_072341_50851634-bbc3-4c33-9acc-7647d4db44aa.mp4" type="video/mp4">
+    </video>
+    <div class="hero-scrim"></div>
+  </div>
+
+  <div class="page">
+    
+    <!-- Mobile blur backdrop -->
+    <div class="menu-backdrop" id="menu-backdrop" aria-hidden="true"></div>
+
+    <!-- 1. FULL VIEWPORT HERO FRAME -->
+    <div class="hero-viewport" id="top">
+      
+      <!-- Header -->
+      <header class="header">
+        <!-- Logo -->
+        <a href="#top" class="logo appear appear--scale d-logo" aria-label="Remain LLC — Home">
+          <span class="logo-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+              <g transform="rotate(-30 12 12)">
+                <circle cx="7.3" cy="3.2" r="1.45" />
+                <rect x="5.5" y="4.7" width="3.6" height="14.6" rx="1.8" />
+                <rect x="14.9" y="4.7" width="3.6" height="14.6" rx="1.8" />
+                <circle cx="16.7" cy="20.8" r="1.45" />
+              </g>
+            </svg>
+          </span>
+          <span>Remain<span class="logo-suffix">.llc</span></span>
+        </a>
+
+        <!-- Center Nav (Liquid-metal pills) -->
+        <nav id="site-nav" aria-label="Primary Navigation">
+          <a href="#services" class="nav-pill appear appear--scale d-nav-1">Services</a>
+          <a href="#how-it-works" class="nav-pill appear appear--soft d-nav-2">How It Works</a>
+          <a href="#why-remain" class="nav-pill appear appear--scale d-nav-3">Why Us</a>
+          <a href="#contact" class="nav-pill appear appear--soft d-nav-4">Contact</a>
+        </nav>
+
+        <!-- Right: CTA + Mobile Burger -->
+        <div class="header-actions">
+          <a href="#contact" class="btn btn-solid header-cta appear appear--scale d-header-cta">Start Free</a>
+          <button class="burger appear appear--scale d-header-cta" id="burger-btn" aria-controls="site-nav" aria-expanded="false" aria-label="Open menu">
+            <span class="burger-bar"></span>
+            <span class="burger-bar"></span>
+            <span class="burger-bar"></span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Hero Area -->
+      <main class="hero">
+        <div class="hero-copy">
+          
+          <!-- Badge -->
+          <div class="badge appear appear--pop d-badge">
+            <span class="badge-star" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 2.6C12.55 2.6 12.88 3.15 13.08 4.7c.62 4.7 1.52 5.6 6.22 6.22 1.55.2 2.1.53 2.1 1.08s-.55.88-2.1 1.08c-4.7.62-5.6 1.52-6.22 6.22-.2 1.55-.53 2.1-1.08 2.1s-.88-.55-1.08-2.1c-.62-4.7-1.52-5.6-6.22-6.22C3.15 12.88 2.6 12.55 2.6 12s.55-.88 2.1-1.08c4.7-.62 5.6-1.52 6.22-6.22C11.12 3.15 11.45 2.6 12 2.6Z"/>
+              </svg>
+            </span>
+            <span>Holland, Michigan · For Local Trade Businesses</span>
+          </div>
+
+          <!-- H1 Headline (Masked two lines) -->
+          <h1 class="hero-h1">
+            <span class="headline-line">
+              <span class="appear appear--mask d-h1-1" style="display:inline-block">Never lose <em>another customer</em> to a</span>
+            </span>
+            <span class="headline-line">
+              <span class="appear appear--mask d-h1-2" style="display:inline-block">missed phone call.</span>
+            </span>
+          </h1>
+
+          <!-- Lede Subheadline (Plain words, zero tech jargon) -->
+          <p class="lede appear appear--soft d-lede">
+            When you're under a sink, on a roof, or in a crawl space, you can't answer the phone. We automatically text your missed calls back in seconds and book the job before they call the next guy on Google.
+          </p>
+
+          <!-- Action Buttons -->
+          <div class="hero-actions">
+            <a href="#how-it-works" class="btn btn-solid hero-btn-solid appear appear--btn d-cta-solid">See How It Works</a>
+            <a href="#contact" class="btn btn-ghost appear appear--side d-cta-ghost">Get Started for Free</a>
+          </div>
+
+        </div>
+      </main>
+
+      <!-- Stats Footer -->
+      <footer class="stats" aria-label="Key Performance Indicators">
+        
+        <!-- Stat 1: Dual Pill Icon -->
+        <div class="stat appear appear--stat d-stat-1">
+          <span class="stat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20">
+              <defs>
+                <linearGradient id="gradPill1" x1="3" y1="2" x2="14" y2="22" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#ffffff" stop-opacity="0.38"/>
+                  <stop offset="100%" stop-color="#3a3a3a" stop-opacity="0.62"/>
+                </linearGradient>
+                <linearGradient id="gradPill2" x1="13" y1="2" x2="24" y2="22" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#3a3a3a" stop-opacity="0.38"/>
+                  <stop offset="100%" stop-color="#ffffff" stop-opacity="0.62"/>
+                </linearGradient>
+              </defs>
+              <rect x="3.4" y="2.6" width="7.2" height="18.8" rx="3.6" fill="url(#gradPill1)" />
+              <rect x="13.4" y="2.6" width="7.2" height="18.8" rx="3.6" fill="url(#gradPill2)" />
+              <rect x="9.2" y="10.9" width="5.6" height="2.2" rx="1.1" fill="#4a4a4a" />
+            </svg>
+          </span>
+          <span>100% of missed calls texted in seconds</span>
+        </div>
+
+        <!-- Stat 2: Download / Instant Tile Icon -->
+        <div class="stat appear appear--stat d-stat-2">
+          <span class="stat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20">
+              <rect x="2.4" y="2.4" width="19.2" height="19.2" rx="6.2" fill="#ffffff" />
+              <path d="M12 7.1v7.4M8.15 12.35L12 16.2l3.85-3.85" stroke="#111111" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+          <span>Zero apps to learn or tech headaches</span>
+        </div>
+
+        <!-- Stat 3: Wide avatars mark -->
+        <div class="stat appear appear--stat d-stat-3">
+          <span class="stat-icon stat-icon-wide" aria-hidden="true">
+            <svg viewBox="0 0 40 22" width="38" height="21">
+              <!-- Dark avatar -->
+              <circle cx="10.2" cy="11" r="9.2" fill="#2b2b2b" />
+              <ellipse cx="10.2" cy="12.1" rx="4.15" ry="3.7" fill="#f4f4f4" />
+              <circle cx="8.8" cy="11.5" r="0.7" fill="#1a1a1a" />
+              <circle cx="11.6" cy="11.5" r="0.7" fill="#1a1a1a" />
+              <!-- White avatar -->
+              <circle cx="20.2" cy="11" r="9.2" fill="#ffffff" />
+              <circle cx="17.8" cy="9.8" r="1.7" fill="#111111" />
+              <circle cx="22.6" cy="9.8" r="1.7" fill="#111111" />
+              <ellipse cx="20.2" cy="12.8" rx="1.5" ry="0.9" fill="#111111" />
+              <path d="M18.2 14.5c.8.9 3.2.9 4 0" stroke="#111111" stroke-width="1.2" stroke-linecap="round" fill="none" />
+              <!-- Orange avatar with 'e' -->
+              <circle cx="30.2" cy="11" r="9.2" fill="#f26b1d" />
+              <text x="30.2" y="15.1" fill="#ffffff" font-family="'Inter', sans-serif" font-weight="700" font-size="12.5" text-anchor="middle">e</text>
+            </svg>
+          </span>
+          <span>Built for Michigan plumbers, HVAC &amp; electricians</span>
+        </div>
+
+      </footer>
+
+    </div>
+
+    <!-- 2. SERVICES SECTION -->
+    <section class="content-section" id="services">
+      <div class="section-header">
+        <span class="section-tag">What We Do</span>
+        <h2 class="section-title">Everything you need to <em>book more jobs</em></h2>
+        <p class="section-desc">
+          When an emergency call comes in, homeowners call the next business down the list if nobody answers. Here is how Remain keeps those jobs on your calendar.
+        </p>
+      </div>
+
+      <div class="services-grid">
+        
+        <!-- Service 1 -->
+        <article class="service-card">
+          <div class="service-icon-box">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              <path d="M14 2v4"/>
+              <path d="M18 2v4"/>
+              <path d="M14 6h4"/>
+            </svg>
+          </div>
+          <h3 class="service-title">1. Instant Missed-Call Text-Back</h3>
+          <p class="service-text">
+            When you miss a call because your hands are dirty, our system immediately sends that caller a friendly, customized text message within 15 seconds.
+          </p>
+          <div class="service-quote">
+            “Hey, this is Dan with Holland Heating. I’m on a job site right now—how can I help you today?”
+          </div>
+        </article>
+
+        <!-- Service 2 -->
+        <article class="service-card">
+          <div class="service-icon-box">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              <path d="M8 9h8"/>
+              <path d="M8 13h5"/>
+            </svg>
+          </div>
+          <h3 class="service-title">2. Answers Questions &amp; Books Jobs</h3>
+          <p class="service-text">
+            The customer texts back with their problem. The system answers basic questions—like your service area, hours, or emergency trip fees—and collects their address to book the service call.
+          </p>
+          <div class="service-quote">
+            Books the appointment right onto your schedule so you can finish the job in front of you.
+          </div>
+        </article>
+
+        <!-- Service 3 -->
+        <article class="service-card">
+          <div class="service-icon-box">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          </div>
+          <h3 class="service-title">3. Automated 5-Star Review Requests</h3>
+          <p class="service-text">
+            Once you wrap up work for a homeowner, a quick automated text sends them a direct 1-click link to leave a 5-star Google review. Boost your ranking and dominate your local area.
+          </p>
+          <div class="service-quote">
+            90% of trade reviews come from a single polite text sent immediately after the job is done.
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- 3. HOW IT WORKS SECTION -->
+    <section class="content-section" id="how-it-works">
+      <div class="section-header">
+        <span class="section-tag">Simple &amp; Fast</span>
+        <h2 class="section-title">How it works in <em>3 easy steps</em></h2>
+        <p class="section-desc">
+          You don't have to learn new complicated software or switch your business phone number. We handle the heavy lifting.
+        </p>
+      </div>
+
+      <div class="steps-grid">
+        
+        <div class="step-card">
+          <span class="step-badge">1</span>
+          <h3 class="step-title">We set it up for you</h3>
+          <p class="step-desc">
+            Takes 15 minutes over the phone. We connect your existing business phone number and dial in your company's greeting, service radius, and hours.
+          </p>
+        </div>
+
+        <div class="step-card">
+          <span class="step-badge">2</span>
+          <h3 class="step-title">Calls get answered by text</h3>
+          <p class="step-desc">
+            Whenever you can't pick up the phone—whether you're on a roof, under a house, or with your family—your caller gets an immediate text back.
+          </p>
+        </div>
+
+        <div class="step-card">
+          <span class="step-badge">3</span>
+          <h3 class="step-title">You get the jobs</h3>
+          <p class="step-desc">
+            Instead of calling your competitor down the road, the homeowner is already texting with your business and locked in for an appointment.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Benefit callout banner -->
+      <div class="benefit-banner" id="why-remain">
+        <div class="benefit-item">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <span>Keep your existing phone number</span>
+        </div>
+        <div class="benefit-item">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <span>No apps to install on your phone</span>
+        </div>
+        <div class="benefit-item">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <span>No long-term contracts</span>
+        </div>
+        <div class="benefit-item">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          <span>Local team based in Holland, MI</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. CONTACT & TRADE ASSESSMENT SECTION -->
+    <section class="content-section" id="contact">
+      <div class="contact-container">
+        
+        <div class="contact-info">
+          <div>
+            <span class="section-tag">Get in Touch</span>
+            <h3>Ready to stop losing jobs <em>to missed calls?</em></h3>
+            <p>
+              Send us a quick message or call us directly. We’ll show you exactly how the missed-call text-back works for your specific trade, with zero pressure.
+            </p>
+          </div>
+
+          <div class="contact-meta">
+            <div class="meta-row">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+              <a href="mailto:info@remainllc.com">info@remainllc.com</a>
+            </div>
+            <div class="meta-row">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              <span>Holland, Michigan</span>
+            </div>
+            <div class="meta-row">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+              <span>Response time: Under 15 minutes during business hours</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Form -->
+        <form class="contact-form" id="trade-contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="full-name">Your Name</label>
+              <input type="text" id="full-name" name="name" placeholder="Dave Miller" required>
+            </div>
+            <div class="form-group">
+              <label for="business-name">Business Name</label>
+              <input type="text" id="business-name" name="business" placeholder="Miller Plumbing &amp; Heating" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="trade-select">Your Trade</label>
+              <select id="trade-select" name="trade" required>
+                <option value="" disabled selected>Select your trade...</option>
+                <option value="plumbing">Plumbing</option>
+                <option value="hvac">HVAC / Heating &amp; Cooling</option>
+                <option value="electrical">Electrical</option>
+                <option value="auto">Auto Repair / Mechanic</option>
+                <option value="roofing">Roofing &amp; Gutters</option>
+                <option value="general">General Contractor / Handyman</option>
+                <option value="other">Other Trade</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="phone-number">Phone Number</label>
+              <input type="tel" id="phone-number" name="phone" placeholder="(616) 555-0199" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email-addr">Email Address</label>
+            <input type="email" id="email-addr" name="email" placeholder="dave@millerplumbing.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="user-message">How many calls do you estimate you miss a week?</label>
+            <textarea id="user-message" name="message" placeholder="e.g. Probably 5 to 10 when I'm on job sites..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-solid form-submit-btn">
+            Send My Free Trade Assessment
+          </button>
+
+          <div class="form-success" id="form-success-msg">
+            ✓ Thanks! We received your note. A Holland, MI specialist from Remain will text or email you shortly.
+          </div>
+        </form>
+
+      </div>
+    </section>
+
+    <!-- Main Site Footer -->
+    <footer class="site-footer">
+      <div>
+        © 2026 Remain LLC. All rights reserved. Holland, Michigan.
+      </div>
+      <div class="footer-links">
+        <a href="#services">Services</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#why-remain">Why Us</a>
+        <a href="#contact">Contact</a>
+        <a href="mailto:info@remainllc.com">info@remainllc.com</a>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- JavaScript: Menu, Entrance Motion Fallbacks, Form Handling -->
+  <script>
+    (function () {
+      'use strict';
+
+      // 1. Entrance Motion Fallback:
+      // Remove animation locks on animationend
+      const appears = document.querySelectorAll('.appear');
+      appears.forEach(el => {
+        el.addEventListener('animationend', () => {
+          el.classList.add('is-in');
+        }, { once: true });
+      });
+
+      // After two rAFs, if browser hasn't started or finished animations, force .is-in
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          let hasActiveAnimations = false;
+          try {
+            if (typeof document.getAnimations === 'function') {
+              const anims = document.getAnimations();
+              hasActiveAnimations = anims.some(a => a.playState === 'running' || a.playState === 'finished');
+            }
+          } catch (e) {}
+
+          if (!hasActiveAnimations) {
+            appears.forEach(el => el.classList.add('is-in'));
+          }
+        });
+      });
+
+      // 2. Mobile Menu Toggle
+      const burger = document.getElementById('burger-btn');
+      const backdrop = document.getElementById('menu-backdrop');
+      const siteNav = document.getElementById('site-nav');
+      const navLinks = siteNav.querySelectorAll('a');
+
+      function toggleMenu(forceClose = false) {
+        const isOpen = document.body.classList.contains('menu-open');
+        if (isOpen || forceClose) {
+          document.body.classList.remove('menu-open');
+          burger.setAttribute('aria-expanded', 'false');
+          burger.setAttribute('aria-label', 'Open menu');
+        } else {
+          document.body.classList.add('menu-open');
+          burger.setAttribute('aria-expanded', 'true');
+          burger.setAttribute('aria-label', 'Close menu');
+        }
+      }
+
+      if (burger) {
+        burger.addEventListener('click', (e) => {
+          e.stopPropagation();
+          toggleMenu();
+        });
+      }
+
+      if (backdrop) {
+        backdrop.addEventListener('click', () => toggleMenu(true));
+      }
+
+      navLinks.forEach(link => {
+        link.addEventListener('click', () => toggleMenu(true));
+      });
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && document.body.classList.contains('menu-open')) {
+          toggleMenu(true);
+        }
+      });
+
+      // Resize >= 901 closes the mobile menu
+      window.matchMedia('(min-width: 901px)').addEventListener('change', (e) => {
+        if (e.matches) {
+          toggleMenu(true);
+        }
+      });
+
+      // 3. Contact Form Submission Handler
+      const contactForm = document.getElementById('trade-contact-form');
+      const successMsg = document.getElementById('form-success-msg');
+      if (contactForm) {
+        contactForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          const submitBtn = contactForm.querySelector('button[type="submit"]');
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+          }
+
+          setTimeout(() => {
+            if (submitBtn) {
+              submitBtn.style.display = 'none';
+            }
+            if (successMsg) {
+              successMsg.style.display = 'block';
+            }
+          }, 600);
+        });
+      }
+
+    })();
+  </script>
+</body>
+</html>
