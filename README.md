@@ -29,24 +29,17 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## 🚀 Pushing to GitHub
+## 🚀 GitHub Repository
 
-To push this site to a GitHub repository:
+The site is pushed to:
+**[https://github.com/mitchmiddleton24-bot/remain-site](https://github.com/mitchmiddleton24-bot/remain-site)**
 
-1. Open terminal in this folder (`60_projects/remain`):
-   ```bash
-   cd 60_projects/remain
-   git init
-   git add .
-   git commit -m "Initial commit: Remain LLC landing page"
-   ```
-2. Create a new repository on your GitHub account (e.g. `remain-site` or `remainllc`).
-3. Link and push:
-   ```bash
-   git branch -M main
-   git remote add origin https://github.com/<YOUR_USERNAME>/remainllc.git
-   git push -u origin main
-   ```
+To push future updates:
+```bash
+git add .
+git commit -m "Update site"
+git push
+```
 
 ---
 
