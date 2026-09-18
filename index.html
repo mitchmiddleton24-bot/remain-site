@@ -6,8 +6,13 @@
   <title>Remain - AI and Automation for Small Businesses</title>
   <meta name="description" content="We build the systems that capture leads, cut busywork, and show you what's actually happening in your business. Fast websites, lead follow-up, internal tools, and dashboards for small businesses.">
 
-  <!-- Favicon SVG exact data URI -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cg transform='rotate(-30 12 12)'%3E%3Ccircle cx='7.3' cy='3.2' r='1.45'/%3E%3Crect x='5.5' y='4.7' width='3.6' height='14.6' rx='1.8'/%3E%3Crect x='14.9' y='4.7' width='3.6' height='14.6' rx='1.8'/%3E%3Ccircle cx='16.7' cy='20.8' r='1.45'/%3E%3C/g%3E%3C/svg%3E">
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="shortcut icon" href="favicon.ico">
 
   <!-- Google Fonts exact fallbacks: Inter variable + Instrument Serif italic -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -195,30 +200,20 @@
     a.logo {
       display: inline-flex;
       align-items: center;
-      gap: 9px;
       justify-self: start;
-      font-size: var(--logo);
-      font-weight: 600;
-      letter-spacing: -0.03em;
-      color: #ffffff;
+      line-height: 1;
       transition: opacity 0.25s ease, transform 0.25s ease;
     }
     a.logo:hover {
-      opacity: 0.9;
+      opacity: 0.85;
       transform: translateY(-1px);
     }
-    .logo-mark {
-      width: var(--logo-mark);
-      height: var(--logo-mark);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ffffff;
-    }
-    .logo-suffix {
-      font-weight: 400;
-      color: var(--muted);
-      margin-left: -1px;
+    .header-logo {
+      height: 25px;
+      width: auto;
+      max-width: 155px;
+      display: block;
+      object-fit: contain;
     }
 
     /* Center: Nav pills */
@@ -1238,6 +1233,10 @@
       .logo, .header-cta, .burger {
         z-index: 80;
       }
+      .header-logo {
+        height: 22px;
+        max-width: 132px;
+      }
 
       .burger {
         display: flex;
@@ -1350,6 +1349,10 @@
       .header-cta {
         display: none; /* Hide header CTA on very small phones to preserve space for burger */
       }
+      .header-logo {
+        height: 19px;
+        max-width: 118px;
+      }
     }
   </style>
 </head>
@@ -1378,17 +1381,7 @@
       <header class="header">
         <!-- Logo -->
         <a href="#top" class="logo appear appear--scale d-logo" aria-label="Remain - Home">
-          <span class="logo-mark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-              <g transform="rotate(-30 12 12)">
-                <circle cx="7.3" cy="3.2" r="1.45" />
-                <rect x="5.5" y="4.7" width="3.6" height="14.6" rx="1.8" />
-                <rect x="14.9" y="4.7" width="3.6" height="14.6" rx="1.8" />
-                <circle cx="16.7" cy="20.8" r="1.45" />
-              </g>
-            </svg>
-          </span>
-          <span>Remain</span>
+          <img src="remain-white.svg" alt="Remain" class="header-logo" width="144" height="25">
         </a>
 
         <!-- Center Nav (Liquid-metal pills) -->
