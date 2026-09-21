@@ -11,18 +11,16 @@ We help local trade businesses (plumbers, HVAC, electricians, auto shops, roofer
 
 ## 🛠 Local Development & Preview
 
-You can preview the website locally using any lightweight static web server:
+All public site assets live in `/public`. You can preview the website locally using any lightweight static web server:
 
-### Option 1: Using Node (npx serve)
+### Option 1: Using Python
 ```bash
-npx serve .
-# Or specify a port:
-npx serve . -p 3000
+python -m http.server 3000 --directory public
 ```
 
-### Option 2: Using Python
+### Option 2: Using Node (npx serve)
 ```bash
-python -m http.server 3000
+npx serve public -p 3000
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
@@ -43,16 +41,13 @@ git push
 
 ---
 
-## ☁️ Deploying on Cloudflare Pages (100% Free)
+## ☁️ Deploying on Cloudflare Workers (Static Assets)
 
-Cloudflare Pages provides unlimited bandwidth, global CDN speeds, custom domains, and free SSL:
+The project is configured for Cloudflare Workers Static Assets using `wrangler.jsonc`.
 
-1. Go to [dash.cloudflare.com](https://dash.cloudflare.com/) and navigate to **Workers & Pages**.
-2. Click **Create Application** > **Pages** > **Connect to Git**.
-3. Select your GitHub repository (`remainllc`).
-4. Set the build configuration:
-   - **Framework preset**: None (HTML/Static)
-   - **Build command**: (leave empty)
-   - **Build output directory**: `/` (root)
-5. Click **Save and Deploy**.
-6. In **Custom Domains**, add `remainllc.com` to connect your live domain in seconds!
+Deploy with a single command:
+```bash
+npx wrangler deploy
+```
+
+No build command is needed. The static assets in `./public` are deployed directly to Cloudflare's global edge network with instant SSL, CDN caching, and custom domain support for `remainllc.com`.
