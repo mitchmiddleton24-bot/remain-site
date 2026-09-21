@@ -1881,17 +1881,33 @@
     (function () {
       'use strict';
 
-      // Ensure ambient background wave videos play continuously with seamless fallback
+      // Ensure ambient background wave videos play 100% smoothly (pause off-screen to save CPU/GPU)
+      const videoObserver = ('IntersectionObserver' in window) ? new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const video = entry.target;
+          if (entry.isIntersecting) {
+            video.play().then(() => video.classList.add('is-playing')).catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+      }, { rootMargin: '200px 0px' }) : null;
+
       document.querySelectorAll('video.section-video').forEach(video => {
         video.muted = true;
         const markPlaying = () => video.classList.add('is-playing');
         video.addEventListener('playing', markPlaying, { once: true });
         video.addEventListener('timeupdate', markPlaying, { once: true });
-        if (!video.paused && video.currentTime > 0) {
-          markPlaying();
+        if (videoObserver) {
+          videoObserver.observe(video);
+        } else {
+          video.play().then(markPlaying).catch(() => {});
         }
-        const tryPlay = () => video.play().then(markPlaying).catch(() => {});
-        tryPlay();
+        const tryPlay = () => {
+          if (video.getBoundingClientRect().top < window.innerHeight + 200 && video.getBoundingClientRect().bottom > -200) {
+            video.play().then(markPlaying).catch(() => {});
+          }
+        };
         document.addEventListener('touchstart', tryPlay, { once: true, passive: true });
         document.addEventListener('click', tryPlay, { once: true, passive: true });
       });
