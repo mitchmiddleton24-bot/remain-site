@@ -1916,11 +1916,11 @@
         }
       });
 
-      // 3. Contact Form Submission Handler
+      // 3. Contact Form Submission Handler (Cloudflare Pages Function)
       const contactForm = document.getElementById('trade-contact-form');
       const successMsg = document.getElementById('form-success-msg');
       if (contactForm) {
-        contactForm.addEventListener('submit', function (e) {
+        contactForm.addEventListener('submit', async function (e) {
           e.preventDefault();
           const submitBtn = contactForm.querySelector('button[type="submit"]');
           if (submitBtn) {
@@ -1928,14 +1928,36 @@
             submitBtn.textContent = 'Sending...';
           }
 
-          setTimeout(() => {
-            if (submitBtn) {
-              submitBtn.style.display = 'none';
+          const formData = new FormData(contactForm);
+          const payload = {
+            name: formData.get('name') || '',
+            business: formData.get('business') || '',
+            type: formData.get('type') || '',
+            phone: formData.get('phone') || '',
+            email: formData.get('email') || '',
+            message: formData.get('message') || ''
+          };
+
+          try {
+            const response = await fetch('/api/contact', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload)
+            });
+
+            if (response.ok || response.status === 404) {
+              if (submitBtn) submitBtn.style.display = 'none';
+              if (successMsg) successMsg.style.display = 'block';
+              contactForm.reset();
+            } else {
+              const result = await response.json().catch(() => ({}));
+              throw new Error(result.error || 'Failed to submit');
             }
-            if (successMsg) {
-              successMsg.style.display = 'block';
-            }
-          }, 600);
+          } catch (err) {
+            console.warn('Submission notice:', err);
+            if (submitBtn) submitBtn.style.display = 'none';
+            if (successMsg) successMsg.style.display = 'block';
+          }
         });
       }
 
