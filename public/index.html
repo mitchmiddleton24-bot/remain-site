@@ -1783,16 +1783,16 @@
               <input type="text" id="full-name" name="name" placeholder="Dave Miller" required>
             </div>
             <div class="form-group">
-              <label for="business-name">Business Name</label>
-              <input type="text" id="business-name" name="business" placeholder="Miller Enterprises" required>
+              <label for="business-name">Business Name (optional)</label>
+              <input type="text" id="business-name" name="business" placeholder="Miller Enterprises">
             </div>
           </div>
 
           <div class="form-row">
             <div class="form-group">
-              <label for="business-type">Industry or Business Type</label>
-              <select id="business-type" name="type" required>
-                <option value="" disabled selected>Select your industry...</option>
+              <label for="business-type">Industry or Business Type (optional)</label>
+              <select id="business-type" name="type">
+                <option value="" selected>Select your industry...</option>
                 <option value="contractors">Contractors and Trades</option>
                 <option value="manufacturing">Machine Shops and Manufacturing</option>
                 <option value="local-services">Local Service Businesses</option>
@@ -1802,18 +1802,22 @@
             </div>
             <div class="form-group">
               <label for="phone-number">Phone Number</label>
-              <input type="tel" id="phone-number" name="phone" placeholder="(555) 000-0000" required>
+              <input type="tel" id="phone-number" name="phone" placeholder="(555) 000-0000">
             </div>
           </div>
 
           <div class="form-group">
             <label for="email-addr">Email Address</label>
-            <input type="email" id="email-addr" name="email" placeholder="dave@example.com" required>
+            <input type="email" id="email-addr" name="email" placeholder="dave@example.com">
           </div>
 
           <div class="form-group">
-            <label for="user-message">Where are time and leads leaking in your business?</label>
+            <label for="user-message">Where are time and leads leaking in your business? (optional)</label>
             <textarea id="user-message" name="message" placeholder="Tell us about the spreadsheets, manual entry, or follow up challenges you want solved..."></textarea>
+          </div>
+
+          <div class="form-error" id="form-contact-error" style="display: none; margin-top: 0;">
+            Please add a phone or email so we can reach you.
           </div>
 
           <button type="submit" class="btn btn-solid form-submit-btn">
@@ -1946,6 +1950,22 @@
       const contactForm = document.getElementById('trade-contact-form');
       const successMsg = document.getElementById('form-success-msg');
       const errorMsg = document.getElementById('form-error-msg');
+      const contactError = document.getElementById('form-contact-error');
+      const phoneInput = document.getElementById('phone-number');
+      const emailInput = document.getElementById('email-addr');
+
+      function clearContactError() {
+        if (contactError) {
+          contactError.style.display = 'none';
+        }
+      }
+
+      if (phoneInput) {
+        phoneInput.addEventListener('input', clearContactError);
+      }
+      if (emailInput) {
+        emailInput.addEventListener('input', clearContactError);
+      }
 
       if (contactForm) {
         contactForm.addEventListener('submit', async function (e) {
@@ -1953,6 +1973,19 @@
           const submitBtn = contactForm.querySelector('button[type="submit"]');
           const originalBtnText = 'Book a call';
 
+          const phoneVal = phoneInput ? phoneInput.value.trim() : '';
+          const emailVal = emailInput ? emailInput.value.trim() : '';
+
+          if (!phoneVal && !emailVal) {
+            if (contactError) {
+              contactError.style.display = 'block';
+            }
+            return;
+          }
+
+          if (contactError) {
+            contactError.style.display = 'none';
+          }
           if (errorMsg) {
             errorMsg.style.display = 'none';
           }
